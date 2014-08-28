@@ -2,10 +2,12 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
-var browserSync = require('browser-sync');
-var sass = require('gulp-sass');
+var cache = require('gulp-cache');
+//var sass = require('gulp-sass');
+var sass = require('gulp-ruby-sass');
 var imagemin = require('gulp-imagemin');
 var rimraf = require('gulp-rimraf');
+var browserSync = require('browser-sync');
 
 var reload = browserSync.reload;
 
@@ -37,7 +39,7 @@ var paths = {
 };
 
 gulp.task('clean', function() {
-  return gulp.src(paths.dist, { read: false }) // much faster
+  return gulp.src(paths.dist, { read: false })
     .pipe(rimraf());
 });
 
@@ -53,11 +55,12 @@ gulp.task('js', function () {
 
 gulp.task('sass', function () {
     return gulp.src(paths.input.sass)
-        .pipe(sass())
-        .pipe(concat('app.css'))
+        .pipe(sass({style: 'compressed'}))
+        .pipe(concat('style.css'))
         .pipe(gulp.dest(paths.output.css))
         .pipe(reload({stream:true}));
 });
+
 
 gulp.task('index', function () {
     return gulp.src(paths.input.index)
@@ -71,7 +74,7 @@ gulp.task('templates', function () {
 
 gulp.task('images', function () {
     return gulp.src(paths.input.images)
-        .pipe(imagemin())
+        .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
         .pipe(gulp.dest(paths.output.images))
 });
 
