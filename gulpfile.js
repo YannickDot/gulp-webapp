@@ -22,11 +22,11 @@ var paths = {
   },
 
   input : {
-    js : ['src/js/**/*.js'],
-    sass : ['src/scss/**/*.scss'],
-    templates : ['src/templates/**/*.html'],
+    js : ['src/js/**/*.js', 'src/js/*.js'],
+    sass : ['src/scss/**/*.scss', 'src/scss/*.scss'],
+    templates : ['src/templates/**/*.html', 'src/templates/*.html'],
     index : ['src/*.html'],
-    images : ['src/img/**/*'],
+    images : ['src/img/**/*', 'src/img/*'],
   },
 
   server : './dist',
@@ -92,10 +92,9 @@ gulp.task('build', ['clean'], function() {
 });
 
 gulp.task('default', ['build', 'browser-sync'], function () {
-
-  	gulp.watch(paths.input.index, ['index', 'bs-reload']); //ok
-  	gulp.watch(paths.input.templates, ['templates', 'bs-reload']); //ok
-  	gulp.watch(paths.input.sass, ['sass']); //ok - TODO : install sass
+    gulp.watch(paths.input.index, ['index', 'bs-reload']); //ok
+    gulp.watch(paths.input.templates, ['templates', 'bs-reload']); //ok
+    gulp.watch(paths.input.sass, ['sass']); //ok - TODO : install sass
     gulp.watch(paths.input.js, ['js', 'bs-reload']); //ok
     gulp.watch(paths.input.images, ['images', 'bs-reload']); //ok
 });
