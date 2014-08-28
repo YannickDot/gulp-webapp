@@ -16,6 +16,7 @@
     "gulp-karma": "0.0.4",
     "gulp-plumber": "~0.6.2",
     "gulp-rename": "~1.1.0",
+    "gulp-rimraf": "^0.1.0",
     "gulp-sass": "^0.7.3",
     "gulp-uglify": "~0.3.0",
     "jshint-stylish": "^0.2.0",
