@@ -4,9 +4,12 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var browserSync = require('browser-sync');
 var sass = require('gulp-sass');
+var imagemin = require('gulp-imagemin');
 var reload = browserSync.reload;
 
 var paths = {
+
+  dist : 'dist/',
 
   output : {
     js : 'dist/js',
@@ -61,6 +64,7 @@ gulp.task('templates', function () {
 
 gulp.task('images', function () {
     return gulp.src(paths.input.images)
+        .pipe(imagemin())
         .pipe(gulp.dest(paths.output.images))
 });
 
