@@ -39,11 +39,14 @@ var paths = {
   ]
 };
 
+/* Clean Tasks */
+
 gulp.task('clean', function() {
   return gulp.src(paths.dist, { read: false })
     .pipe(rimraf());
 });
 
+/* Js Tasks */
 
 gulp.task('js-dev', function () {
    return gulp.src(paths.input.js)
@@ -63,6 +66,8 @@ gulp.task('js', function () {
       .pipe(gulp.dest(paths.output.js));
 });
 
+/* Sass Tasks */
+
 gulp.task('sass-dev', function () {
     return gulp.src(paths.input.sass)
         .pipe(sass({style: 'compressed'}))
@@ -81,6 +86,8 @@ gulp.task('sass', function () {
         .pipe(reload({stream:true}));
 });
 
+/* Copy files to dist folder Tasks */
+
 gulp.task('index', function () {
     return gulp.src(paths.input.index)
         .pipe(gulp.dest(paths.output.index))
@@ -91,11 +98,17 @@ gulp.task('templates', function () {
         .pipe(gulp.dest(paths.output.templates))
 });
 
+
+/* Images Tasks */
+
 gulp.task('images', function () {
     return gulp.src(paths.input.images)
         .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
         .pipe(gulp.dest(paths.output.images))
 });
+
+
+/* BrowserSync Tasks */
 
 gulp.task('browser-sync', function() {
     browserSync({
@@ -109,6 +122,10 @@ gulp.task('bs-reload', function () {
     browserSync.reload();
 });
 
+
+
+/* Build Tasks */
+
 gulp.task('build-dev', ['clean'], function() {
     gulp.start('sass-dev', 'js-dev', 'templates', 'index', 'images');
 });
@@ -116,6 +133,8 @@ gulp.task('build-dev', ['clean'], function() {
 gulp.task('build', ['clean'], function() {
     gulp.start('sass', 'js', 'templates', 'index', 'images');
 });
+
+/* Default Task */
 
 gulp.task('default', ['build-dev', 'browser-sync'], function () {
     gulp.watch(paths.input.index, ['index', 'bs-reload']); 
